@@ -70,7 +70,7 @@ def get_future_date_results(tradedate: date, tiker: str):
                     # Создаем новые колонки 'SHORTNAME', 'LSTTRADE' и заполняем
                     df[['SHORTNAME', 'LSTTRADE']] = df.apply(lambda x: get_info_future(session, x['SECID']), axis=1)
                     df["LSTTRADE"] = pd.to_datetime(df["LSTTRADE"]).dt.date
-                    # Убираем строки где дата последних торгов больше даты экспирации
+                    # Убираем строки, где дата последних торгов больше даты экспирации
                     df = df.loc[df['LSTTRADE'] >= tradedate]
                     # Удаление строк с пустыми OPEN, LOW, HIGH, CLOSE
                     df.dropna(subset=['OPEN', 'LOW', 'HIGH', 'CLOSE'], inplace=True)
